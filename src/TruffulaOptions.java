@@ -101,10 +101,18 @@ public class TruffulaOptions  {
    * @throws FileNotFoundException if the directory cannot be found or if the path points to a file
    */
   public TruffulaOptions(String[] args) throws IllegalArgumentException, FileNotFoundException {
-    // TODO: Replace the below lines with your implementation
-    root = null;
-    showHidden = false;
-    useColor = false;
+    showHidden = true;
+    useColor = true;
+    boolean haspath = false;
+    for (String x : args) {
+      if (x.charAt(0) == '/') {
+
+      }
+      else if (x=="-h") showHidden = false;
+      else if (x=="-nc") useColor = false;
+      else throw new IllegalArgumentException();
+    }
+    if (!haspath) throw new IllegalArgumentException();
   }
 
   /**
