@@ -23,3 +23,4 @@ PLEASE MAKE FREQUENT COMMITS AS YOU FILL OUT THIS FILE.
 * Really not sure the difference between Java.io vs. Java.nio and that worries me.
 
 ## AlphabeticalFileSorter.java
+* Sorting the files using arrays.sort. I don't think I'll need to make many changes here.
