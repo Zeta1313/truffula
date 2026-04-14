@@ -12,8 +12,11 @@ PLEASE MAKE FREQUENT COMMITS AS YOU FILL OUT THIS FILE.
 * Seems to be simple methods that get exported out, with the main bulk being just data.
 
 ## ColorPrinter.java / ColorPrinterTest.java
+* Different commands for consistent printing, carrying over in between commands.
+* Will probably be hard to track down problems considering how it crosses back on itself, need to be extra careful when bugfixing.
 
 ## TruffulaOptions.java / TruffulaOptionsTest.java
+
 
 ## TruffulaPrinter.java / TruffulaPrinterTest.java
 
