@@ -149,4 +149,49 @@ public class TruffulaPrinterTest {
         // Assert that the output matches the expected output exactly
         assertEquals(expected.toString(), output);
     }
+
+    @Test
+    void testPrintTreeSingleFile() throws Exception {
+    File tempDir = Files.createTempDirectory("treeTest").toFile();
+    File file = new File(tempDir, "a.txt");
+    file.createNewFile();
+
+    ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    PrintStream printsteam = new PrintStream(outContent);
+    
+    TruffulaOptions options = new TruffulaOptions(tempDir, false, true);
+
+    TruffulaPrinter printer = new TruffulaPrinter(options, printsteam);
+
+    printer.printTree();
+
+    String output = outContent.toString();
+
+    assertTrue(output.contains(tempDir.getName()));
+    assertTrue(output.contains("a.txt"));
+    }
+
+    @Test
+    void testPrintTreeNestedDirectories() throws Exception {
+    File tempDir = Files.createTempDirectory("treeTest2").toFile();
+    File dirA = new File(tempDir, "A");
+    File dirB = new File(dirA, "B");
+
+    dirA.mkdir();
+    dirB.mkdir();
+
+    ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    PrintStream printsteam = new PrintStream(outContent);
+
+    TruffulaOptions options = new TruffulaOptions(tempDir, false, true);
+
+    TruffulaPrinter printer = new TruffulaPrinter(options, printsteam);
+
+    printer.printTree();
+
+    String output = outContent.toString();
+
+    assertTrue(output.contains("A"));
+    assertTrue(output.contains("B"));
+    }
 }
