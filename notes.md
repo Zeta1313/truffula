@@ -16,8 +16,10 @@ PLEASE MAKE FREQUENT COMMITS AS YOU FILL OUT THIS FILE.
 * Will probably be hard to track down problems considering how it crosses back on itself, need to be extra careful when bugfixing.
 
 ## TruffulaOptions.java / TruffulaOptionsTest.java
-
+* Manages commands to change settings, managing a single object with a variable for each object.
 
 ## TruffulaPrinter.java / TruffulaPrinterTest.java
+* Various types of constructors for various inputs, as well as the meat of the project: actually printing out the tree.
+* Really not sure the difference between Java.io vs. Java.nio and that worries me.
 
 ## AlphabeticalFileSorter.java
