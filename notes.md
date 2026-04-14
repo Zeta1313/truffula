@@ -4,6 +4,8 @@ As part of Wave 0, please fill out notes for each of the below files. They are i
 PLEASE MAKE FREQUENT COMMITS AS YOU FILL OUT THIS FILE.
 
 ## App.java
+* Prints a directory tree, with additional options that change the manner of display.
+* Seems like this will mostly be a method that calls from other files based on the setup of the directory.
 
 ## ConsoleColor.java
 
