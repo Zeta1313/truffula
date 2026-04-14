@@ -8,6 +8,8 @@ PLEASE MAKE FREQUENT COMMITS AS YOU FILL OUT THIS FILE.
 * Seems like this will mostly be a method that calls from other files based on the setup of the directory.
 
 ## ConsoleColor.java
+* Unfamiliar with enum or private final.
+* Seems to be simple methods that get exported out, with the main bulk being just data.
 
 ## ColorPrinter.java / ColorPrinterTest.java
 
