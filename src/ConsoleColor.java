@@ -8,7 +8,7 @@
  * ("\033[0m") after the text to reset the color back to default.
  * 
  * Supported Colors:
- * - BLACK   : Black text
+ * - BLACK   : Black text 
  * - RED     : Red text
  * - GREEN   : Green text
  * - YELLOW  : Yellow text

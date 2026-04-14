@@ -17,7 +17,39 @@ import java.io.PrintStream;
  * 
  * The printed text will appear in the terminal with the specified colors if the terminal supports ANSI codes.
  */
+
+
 public class ColorPrinter {
+
+public static void main(String[] args) {
+    ColorPrinter printer = new ColorPrinter(System.out);
+
+    // Test default color (WHITE)
+    printer.println("This should be white (default)");
+
+    // Test setting different colors
+    printer.setCurrentColor(ConsoleColor.RED);
+    printer.println("This should be red");
+
+    printer.setCurrentColor(ConsoleColor.GREEN);
+    printer.println("This should be green");
+
+    printer.setCurrentColor(ConsoleColor.BLUE);
+    printer.println("This should be blue");
+
+    // Test print without newline
+    printer.setCurrentColor(ConsoleColor.YELLOW);
+    printer.print("This is yellow ");
+    printer.println("and continues on the same line");
+
+    // Test without resetting color
+    printer.setCurrentColor(ConsoleColor.CYAN);
+    printer.println("This is cyan (no reset after this)", false);
+    printer.println("This should still be cyan");
+
+    printer.println("Back to default (white)");
+}
+
   /**
    * The current color used for printing.
    */
@@ -86,7 +118,14 @@ public class ColorPrinter {
    * @param reset   if true, resets the color after printing; if false, keeps the current color
    */
   public void print(String message, boolean reset) {
-    // TODO: Implement this!
+    if (currentColor != null) printStream.print(currentColor.getCode());
+  
+    printStream.print(message);
+
+    if (reset) {
+      printStream.print(currentColor.RESET.getCode());
+      this.currentColor = ConsoleColor.RESET;
+    }
   }
 
   /**
