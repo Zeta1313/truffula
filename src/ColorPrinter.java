@@ -21,35 +21,6 @@ import java.io.PrintStream;
 
 public class ColorPrinter {
 
-public static void main(String[] args) {
-    ColorPrinter printer = new ColorPrinter(System.out);
-
-    // Test default color (WHITE)
-    printer.println("This should be white (default)");
-
-    // Test setting different colors
-    printer.setCurrentColor(ConsoleColor.RED);
-    printer.println("This should be red");
-
-    printer.setCurrentColor(ConsoleColor.GREEN);
-    printer.println("This should be green");
-
-    printer.setCurrentColor(ConsoleColor.BLUE);
-    printer.println("This should be blue");
-
-    // Test print without newline
-    printer.setCurrentColor(ConsoleColor.YELLOW);
-    printer.print("This is yellow ");
-    printer.println("and continues on the same line");
-
-    // Test without resetting color
-    printer.setCurrentColor(ConsoleColor.CYAN);
-    printer.println("This is cyan (no reset after this)", false);
-    printer.println("This should still be cyan");
-
-    printer.println("Back to default (white)");
-}
-
   /**
    * The current color used for printing.
    */
