@@ -124,7 +124,7 @@ public class TruffulaPrinter {
       for (int i = 0; i < depth; i++) {
         out.print("  ");
       }
-      out.println(x.getName());
+      out.println(x.getName()); 
   }
     File[] children = x.listFiles();
     if (x.isDirectory() && children != null) {
