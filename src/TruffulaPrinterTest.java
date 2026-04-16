@@ -194,4 +194,58 @@ public class TruffulaPrinterTest {
     assertTrue(output.contains("A"));
     assertTrue(output.contains("B"));
     }
+
+    @Test
+    void testPrintTreeHidden() throws Exception {
+    File tempDir = Files.createTempDirectory("treeTest2").toFile();
+    File dirA = new File(tempDir, "A");
+    File dirB = new File(dirA, "B");
+
+    dirA.mkdir();
+    dirB.mkdir();
+
+    createHiddenFile(dirB, ".Hidden");
+
+    ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    PrintStream printsteam = new PrintStream(outContent);
+
+    TruffulaOptions options = new TruffulaOptions(tempDir, false, true);
+
+    TruffulaPrinter printer = new TruffulaPrinter(options, printsteam);
+
+    printer.printTree();
+
+    String output = outContent.toString();
+
+    assertTrue(output.contains("A"));
+    assertTrue(output.contains("B"));
+    assertTrue(!output.contains(".Hidden"));
+    }
+    @Test
+    void testPrintTreeHiddenMultiple() throws Exception {
+    File tempDir = Files.createTempDirectory("treeTest2").toFile();
+    File dirA = new File(tempDir, "A");
+    File dirB = new File(dirA, "B");
+
+    dirA.mkdir();
+    dirB.mkdir();
+
+    createHiddenFile(dirB, ".Hidden");
+    createHiddenFile(dirA, ".Hidden");
+
+    ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    PrintStream printsteam = new PrintStream(outContent);
+
+    TruffulaOptions options = new TruffulaOptions(tempDir, true, true);
+
+    TruffulaPrinter printer = new TruffulaPrinter(options, printsteam);
+
+    printer.printTree();
+
+    String output = outContent.toString();
+
+    assertTrue(output.contains("A"));
+    assertTrue(output.contains("B"));
+    assertTrue(output.contains(".Hidden"));
+    }
 }
