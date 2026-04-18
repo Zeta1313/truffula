@@ -1,5 +1,6 @@
 import java.io.PrintStream;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -113,8 +114,6 @@ public class TruffulaPrinter {
     // DO NOT USE SYSTEM.OUT.PRINTLN
     // USE out.println instead (will use your ColorPrinter)
 
-    out.println("printTree was called!");
-    out.println("My options are: " + options);
     if (!options.isUseColor()) printTreeHelper(options.getRoot(), 0, options.isShowHidden());
     else printTreeHelper(options.getRoot(), 0, options.isShowHidden(), 0);
   }
@@ -137,16 +136,19 @@ public class TruffulaPrinter {
   }
     private void printTreeHelper(File x, int depth, boolean hidden, int colorIndex) {
     if (x == null) return;
-    if (!x.isHidden() || hidden == true) {
-      for (int i = 0; i < depth; i++) {
-        out.print("  ");
-      }
-        ConsoleColor currentColor = colorSequence.get(colorIndex % colorSequence.size());
-        out.setCurrentColor(currentColor);
-        out.println(x.getName()); 
-    }
     File[] children = x.listFiles();
+    if (!x.isHidden() || hidden == true) {
+      String output = x.getName();
+      for (int i = 0; i < depth; i++) {
+        output = "   " + output;
+      }
+      if (children != null) output = output + "/";
+      ConsoleColor currentColor = colorSequence.get(colorIndex % colorSequence.size());
+      out.setCurrentColor(currentColor);
+      out.println(output); 
+    }
     if (x.isDirectory() && children != null) {
+      AlphabeticalFileSorter.sort(children);
       for (File y : children) {
         printTreeHelper(y, depth + 1, hidden, colorIndex+1);
       }
