@@ -115,7 +115,8 @@ public class TruffulaPrinter {
 
     out.println("printTree was called!");
     out.println("My options are: " + options);
-    printTreeHelper(options.getRoot(), 0, options.isShowHidden());
+    if (options.isUseColor()) printTreeHelper(options.getRoot(), 0, options.isShowHidden());
+    else printTreeHelper(options.getRoot(), 0, options.isShowHidden(), 0);
   }
 
   private void printTreeHelper(File x, int depth, boolean hidden) {
@@ -124,12 +125,30 @@ public class TruffulaPrinter {
       for (int i = 0; i < depth; i++) {
         out.print("  ");
       }
-      out.println(x.getName()); 
+       out.println(x.getName());
+      
   }
     File[] children = x.listFiles();
     if (x.isDirectory() && children != null) {
       for (File y : children) {
         printTreeHelper(y, depth + 1, hidden);
+      }
+    }
+  }
+    private void printTreeHelper(File x, int depth, boolean hidden, int colorIndex) {
+    if (x == null) return;
+    if (!x.isHidden() || hidden == true) {
+      for (int i = 0; i < depth; i++) {
+        out.print("  ");
+      }
+        ConsoleColor currentColor = colorSequence.get(colorIndex % colorSequence.size());
+        out.setCurrentColor(currentColor);
+        out.println(x.getName());   
+    }
+    File[] children = x.listFiles();
+    if (x.isDirectory() && children != null) {
+      for (File y : children) {
+        printTreeHelper(y, depth + 1, hidden, colorIndex+1);
       }
     }
   }
