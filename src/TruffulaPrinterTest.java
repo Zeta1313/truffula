@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -247,5 +248,58 @@ public class TruffulaPrinterTest {
     assertTrue(output.contains("A"));
     assertTrue(output.contains("B"));
     assertTrue(output.contains(".Hidden"));
+    }
+
+    @Test
+    void testColorCyclingByDepth() throws Exception {
+        File tempDir = Files.createTempDirectory("colorDepthTest").toFile();
+        File dirA = new File(tempDir, "A");
+        File dirB = new File(dirA, "B");
+        File dirC = new File(dirB, "C");
+
+        dirA.mkdir();
+        dirB.mkdir();
+        dirC.mkdir();
+
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(outContent);
+
+        TruffulaOptions options = new TruffulaOptions(tempDir, false, true);
+        TruffulaPrinter printer = new TruffulaPrinter(options, printStream);
+
+        printer.printTree();
+
+        String output = outContent.toString();
+
+        assertTrue(output.contains(ConsoleColor.WHITE.getCode() + tempDir.getName()));
+        assertTrue(output.contains(ConsoleColor.PURPLE.getCode()));
+        assertTrue(output.contains(ConsoleColor.YELLOW.getCode()));
+        assertTrue(output.contains(ConsoleColor.WHITE.getCode()));
+    }
+
+    @Test
+    void testCustomColorSequenceCycling() throws Exception {
+        File tempDir = Files.createTempDirectory("customColorTest").toFile();
+        File dirA = new File(tempDir, "A");
+        File dirB = new File(dirA, "B");
+
+        dirA.mkdir();
+        dirB.mkdir();
+
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(outContent);
+
+        List<ConsoleColor> customColors = List.of(ConsoleColor.YELLOW, ConsoleColor.WHITE);
+
+        TruffulaOptions options = new TruffulaOptions(tempDir, false, true);
+        TruffulaPrinter printer = new TruffulaPrinter(options, printStream, customColors);
+
+        printer.printTree();
+
+        String output = outContent.toString();
+
+        assertTrue(output.contains(ConsoleColor.YELLOW.getCode()));
+        assertTrue(output.contains(ConsoleColor.WHITE.getCode()));
+        assertTrue(output.contains(ConsoleColor.YELLOW.getCode()));
     }
 }
